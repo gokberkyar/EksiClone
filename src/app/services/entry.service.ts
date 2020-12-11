@@ -24,4 +24,8 @@ export class EntryService {
     this.httpClient.put("http://localhost:3000/entry/" + entry.id, entry , this.httpOptions).subscribe();
   }
 
+  addEntry(entry: Entry) {
+    return this.httpClient.post<Entry>("http://localhost:3000/entry", entry, this.httpOptions);
+  }
+
 }
