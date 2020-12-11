@@ -16,13 +16,30 @@ export class LeftPartComponent implements OnInit {
   constructor(private baslikService: BaslikService) { }
 
   ngOnInit(): void {
+    this.getBasliklar();
+  }
+
+  onClick(baslik:Baslik) {
+    this.onClicked.emit(baslik);
+  }
+  getBasliklar(){
     this.baslikService.getBasliklar().subscribe((data)=>{
       this.basliklar = data;
     });
   }
 
-  onClick(baslik:Baslik) {
-    this.onClicked.emit(baslik);
+  onFilter(categoryId:number){
+    // this.baslik = baslik;
+    // //console.log("app comp" + id);
+    // this.entryService.getEntriesOfBaslik(baslik.id).subscribe((data) => {
+    //   this.entries = data;
+    // }); 
+
+    //this.getBasliklar();
+  
+    this.basliklar = this.basliklar.filter((baslik) => (baslik.kategoriId== categoryId));
+    console.log(this.basliklar);
+
   }
 
 }

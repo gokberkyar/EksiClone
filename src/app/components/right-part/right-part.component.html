@@ -9,7 +9,7 @@
     <div>
       <div *ngIf="!baslik.title">
         <label>Kategori: </label>
-        <select name="kategoriler" id="kategori" *ngIf="!baslik.title">
+        <select name="kategoriler" ngModel  *ngIf="!baslik.title">
           <option value="{{category.id}}" *ngFor="let category of categories">{{category.text}}</option>
         </select>  <br>
 

@@ -19,7 +19,7 @@ export class RightPartComponent implements OnInit {
     private categoryService: CategoryService,
     private baslikService: BaslikService) { }
 
-  baslik: Baslik = {"id":null, "title":null, "kategori":null};
+  baslik: Baslik = {"id":null, "title":null, "kategoriId":null};
   entries: Entry[];
   categories: Kategori[];
   baslikAdi: string;
@@ -45,7 +45,8 @@ export class RightPartComponent implements OnInit {
   submitForm(form: NgForm) {
     if (!this.baslik.title) {
       let baslik_id: number;
-      this.baslik = {id:null, title: form.value.baslikAdi, kategori: form.value.kategori };
+      this.baslik = {id:null, title: form.value.baslikAdi, kategoriId: form.value.kategoriler };
+      console.log(this.baslik);
       this.baslikService.addBaslik(this.baslik).subscribe((data) => {
         this.baslik = data;
         console.log(this.baslik);

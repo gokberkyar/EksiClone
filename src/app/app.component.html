@@ -1,9 +1,9 @@
-<app-navbar> </app-navbar>
+<app-navbar (onFilter)= "leftpart.onFilter($event)"> </app-navbar>
 
 <div class="container-fluid">
   <div class="row">
     <div class="col-5 overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-width: 360px; max-height: 100vh;">
-          <app-left-part (onClicked)="righpart.onClicked($event)">
+          <app-left-part #leftpart (onClicked)="righpart.onClicked($event)">
           </app-left-part>
     </div>
     <div class="col-7">
