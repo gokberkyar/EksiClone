@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Baslik } from 'src/app/models/baslik';
+import { BaslikService } from 'src/app/services/baslik.service';
 
 @Component({
   selector: 'app-left-part',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeftPartComponent implements OnInit {
 
-  constructor() { }
+  basliklar: Baslik[];
+
+  constructor(private baslikService: BaslikService) { }
 
   ngOnInit(): void {
+    this.baslikService.getBasliklar().subscribe((data)=>{
+      this.basliklar = data;
+    });
   }
 
 }
