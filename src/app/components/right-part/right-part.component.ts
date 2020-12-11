@@ -44,25 +44,43 @@ export class RightPartComponent implements OnInit {
 
   submitForm(form: NgForm) {
     if (!this.baslik.title) {
+      let baslik_id: number;
       this.baslik = {id:null, title: form.value.baslikAdi, kategori: form.value.kategori };
       this.baslikService.addBaslik(this.baslik).subscribe((data) => {
         this.baslik = data;
         console.log(this.baslik);
+        baslik_id = this.baslik.id
+
+        let newEntry: Entry = {id: null,
+          content: form.value.entry,
+          begeniler: 0,
+          baslikId: baslik_id};
+    
+        this.entryService.addEntry(newEntry).subscribe((data) => {
+    
+          if(!this.entries) {
+            this.entries = [];
+          }
+          this.entries.push(data);
+        });
+
       });
     } 
-
-    let newEntry = {id: null,
-      content: form.value.entry,
-      begeniler: 0,
-      baslik: this.baslik};
-
-    this.entryService.addEntry(newEntry).subscribe((data) => {
-
-      if(!this.entries) {
-        this.entries = [];
-      }
-      this.entries.push(data);
-    });      
+    else {
+      let newEntry: Entry = {id: null,
+        content: form.value.entry,
+        begeniler: 0,
+        baslikId: this.baslik.id};
+  
+      this.entryService.addEntry(newEntry).subscribe((data) => {
+  
+        if(!this.entries) {
+          this.entries = [];
+        }
+        this.entries.push(data);
+      });   
+    }
+       
 
   }
 

@@ -4,5 +4,5 @@ export class Entry {
   id: number;
   content: string;
   begeniler: number;
-  baslik: Baslik;
+  baslikId: number;
 }
