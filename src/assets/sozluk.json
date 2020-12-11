@@ -1,0 +1,16 @@
+{
+    "kategori": [
+        {"id": 0, "text": "Spor"},
+        {"id": 1, "text": "Siyaset"},
+        {"id": 2, "text": "Magazin"},
+        {"id": 3, "text": "Bilim"},
+        {"id": 4, "text": "Sanat"},
+        {"id": 5, "text": "Felsefe"}
+    ],
+    "baslik": [
+        {"id": 0, "title": "allianz", "kategoriId": 0}
+    ],
+    "entry": [
+        {"id": 0, "content": "", "baslikId": 0, "begeniler": 0}
+    ]
+}
