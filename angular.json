@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "eksisozlukClone"
+  "defaultProject": "eksisozlukClone",
+  "cli": {
+    "analytics": false
+  }
 }

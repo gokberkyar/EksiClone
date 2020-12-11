@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-right-part',
@@ -8,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class RightPartComponent implements OnInit {
 
   constructor() { }
+  @Input() id: number;
 
   ngOnInit(): void {
+    
   }
 
 }

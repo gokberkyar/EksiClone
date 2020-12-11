@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Baslik } from 'src/app/models/baslik';
 import { BaslikService } from 'src/app/services/baslik.service';
 
@@ -11,12 +11,18 @@ export class LeftPartComponent implements OnInit {
 
   basliklar: Baslik[];
 
+  @Output() onClicked = new EventEmitter<number>();
+
   constructor(private baslikService: BaslikService) { }
 
   ngOnInit(): void {
     this.baslikService.getBasliklar().subscribe((data)=>{
       this.basliklar = data;
     });
+  }
+
+  onClick(id) {
+    this.onClicked.emit(id);
   }
 
 }

@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'eksisozlukClone';
+
+  id: number;
+
+  onClicked(id) {
+    this.id = id;
+    console.log("app comp" + id);
+    
+  }
+
 }
+
