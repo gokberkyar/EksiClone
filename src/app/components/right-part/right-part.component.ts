@@ -15,6 +15,7 @@ export class RightPartComponent implements OnInit {
   baslik: Baslik = {"id":null, "title":null, "kategori":null};
   entries: Entry[];
 
+
   ngOnInit(): void {
 
   }
