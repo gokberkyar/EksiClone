@@ -11,7 +11,7 @@ export class LeftPartComponent implements OnInit {
 
   basliklar: Baslik[];
 
-  @Output() onClicked = new EventEmitter<number>();
+  @Output() onClicked = new EventEmitter<Baslik>();
 
   constructor(private baslikService: BaslikService) { }
 
@@ -21,8 +21,8 @@ export class LeftPartComponent implements OnInit {
     });
   }
 
-  onClick(id) {
-    this.onClicked.emit(id);
+  onClick(baslik:Baslik) {
+    this.onClicked.emit(baslik);
   }
 
 }

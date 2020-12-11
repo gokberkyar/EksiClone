@@ -9,12 +9,34 @@
     ],
     "baslik": [
         {"id": 0, "title": "allianz", "kategoriId": 0},
-        {"id": 1, "title": "allianz", "kategoriId": 0},
-        {"id": 2, "title": "allianz", "kategoriId": 0},
-        {"id": 3, "title": "allianz", "kategoriId": 0},
-        {"id": 4, "title": "allianz", "kategoriId": 0}
+        {"id": 1, "title": "allianz2", "kategoriId": 0},
+        {"id": 2, "title": "allianz3", "kategoriId": 0},
+        {"id": 3, "title": "allianz4", "kategoriId": 0},
+        {"id": 4, "title": "allianz5", "kategoriId": 0}
     ],
     "entry": [
-        {"id": 0, "content": "", "begeniler": 0, "baslikId": 0}
+      {"id": 0, "content": "deneme content", "begeniler": 0, "baslikId": 0},
+      {"id": 1, "content": "deneme content2", "begeniler": 0, "baslikId": 0},
+      {"id": 2, "content": "deneme content2", "begeniler": 0, "baslikId": 0},
+      {"id": 3, "content": "deneme content2", "begeniler": 0, "baslikId": 0},
+      {"id": 4, "content": "deneme content2", "begeniler": 0, "baslikId": 0},
+      {"id": 5, "content": "deneme content2", "begeniler": 0, "baslikId": 0},
+      {"id": 6, "content": "deneme content2", "begeniler": 0, "baslikId": 0},
+
+      {"id": 7, "content": "deneme content2", "begeniler": 0, "baslikId": 1},
+      {"id": 8, "content": "deneme content2", "begeniler": 0, "baslikId": 1},
+      {"id": 9, "content": "deneme content2", "begeniler": 0, "baslikId": 1},
+
+      {"id": 10, "content": "deneme content2", "begeniler": 0, "baslikId": 2},
+      {"id": 11, "content": "deneme content2", "begeniler": 0, "baslikId": 2},
+      {"id": 12, "content": "deneme content2", "begeniler": 0, "baslikId": 2},
+
+      {"id": 13, "content": "deneme content2", "begeniler": 0, "baslikId": 3},
+      {"id": 14, "content": "deneme content2", "begeniler": 0, "baslikId": 3},
+      {"id": 15, "content": "deneme content2", "begeniler": 0, "baslikId": 3},
+
+      {"id": 16, "content": "deneme content2", "begeniler": 0, "baslikId": 4},
+      {"id": 17, "content": "deneme content2", "begeniler": 0, "baslikId": 4},
+      {"id": 18, "content": "deneme content2", "begeniler": 0, "baslikId": 4}
     ]
 }

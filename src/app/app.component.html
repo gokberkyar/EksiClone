@@ -3,11 +3,11 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-5 overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-width: 360px; max-height: 100vh;">
-          <app-left-part (onClicked)="onClicked($event)">
+          <app-left-part (onClicked)="righpart.onClicked($event)">
           </app-left-part>
     </div>
     <div class="col-7">
-          <app-right-part [id]="id"></app-right-part>
+          <app-right-part #righpart></app-right-part>
     </div>
 
   </div>
