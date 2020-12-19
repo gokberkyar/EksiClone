@@ -1,12 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Entry} from "../../models/entry";
-import {EntryService} from "../../services/entry.service";
-import {Baslik} from "../../models/baslik";
+import { HttpClient } from "@angular/common/http";
+import { Entry } from "../../models/entry";
+import { EntryService } from "../../services/entry.service";
+import { Baslik } from "../../models/baslik";
 import { Kategori } from 'src/app/models/kategori';
-import { CategoryService } from 'src/app/services/category.service';
+import { KategoriService } from 'src/app/services/kategori.service';
 import { BaslikService } from 'src/app/services/baslik.service';
 import { NgForm } from '@angular/forms';
+import { concatMap, retry } from 'rxjs/operators';
+import { Observable, Subject, Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-right-part',
@@ -16,73 +19,80 @@ import { NgForm } from '@angular/forms';
 export class RightPartComponent implements OnInit {
 
   constructor(private entryService: EntryService, 
-    private categoryService: CategoryService,
-    private baslikService: BaslikService) { }
-
-  baslik: Baslik = {"id":null, "title":null, "kategoriId":null};
-  entries: Entry[];
-  categories: Kategori[];
-  baslikAdi: string;
+              private kategoriService: KategoriService,
+              private baslikService: BaslikService) { }
 
   ngOnInit(): void {
-    this.loadKategori();
+    if(this.baslikService.baslik.id != null)
+      this.entryService.entryleriDoldur( this.baslikService.baslik.id );
   }
 
-  onClicked(baslik:Baslik) {
-    this.baslik = baslik;
-    //console.log("app comp" + id);
-    this.entryService.getEntriesOfBaslik(baslik.id).subscribe((data) => {
-      this.entries = data;
-    });
+  get entryler():Entry[]{
+    return this.entryService.entryler;
   }
 
-  loadKategori() {
-    this.categoryService.getKategoriler().subscribe((data) => {
-      this.categories = data;
-    })
+  get baslik():Baslik{
+    if ( this.baslikService.baslik == null)
+      return {id:null, title:'',kategoriId:null};
+    else
+      return this.baslikService.baslik;
   }
 
-  submitForm(form: NgForm) {
-    if (!this.baslik.title) {
-      let baslik_id: number;
-      this.baslik = {id:null, title: form.value.baslikAdi, kategoriId: form.value.kategoriler };
-      console.log(this.baslik);
-      this.baslikService.addBaslik(this.baslik).subscribe((data) => {
-        this.baslik = data;
-        console.log(this.baslik);
-        baslik_id = this.baslik.id
+  get kategoriler():Kategori[]{
+    return this.kategoriService.kategoriler;
+  }
 
-        let newEntry: Entry = {id: null,
-          content: form.value.entry,
-          begeniler: 0,
-          baslikId: baslik_id};
-    
-        this.entryService.addEntry(newEntry).subscribe((data) => {
-    
-          if(!this.entries) {
-            this.entries = [];
-          }
-          this.entries.push(data);
-        });
+  submitForm(form:NgForm){
+    let newEntrySub:Subject<Entry> = new Subject<Entry>();
 
+    if (this.baslik.id == null){
+      this.baslikService
+      .addBaslik( {id:null, 
+        title:form.value.baslikAdi, 
+        kategoriId:form.value.kategori})
+      .subscribe((newbaslik) => {
+          this.baslikService.baslik = newbaslik;
+          this.baslikService.basliklariDoldur();
+
+          this.entryService
+         .addEntry({
+            id: null,
+            content: form.value.entry,
+            begeniler: 0,
+            baslikId: newbaslik.id})
+         .subscribe( (returnentry) => {
+              newEntrySub.next(returnentry);
+          });
       });
-    } 
-    else {
-      let newEntry: Entry = {id: null,
+      /*
+      this.baslikService.addBaslik( {id:null, 
+                                    title:form.value.baslikAdi, 
+                                    kategoriId:form.value.kategori}).pipe(
+        concatMap( (newbaslik) => {
+          this.baslikService.baslik = newbaslik;
+          this.baslikService.basliklariDoldur();
+          return this.entryService.addEntry({
+            id: null,
+            content: form.value.entry,
+            begeniler: 0,
+            baslikId: newbaslik.id});
+        })
+      );
+      */
+    } else {
+      this.entryService.addEntry({
+        id: null,
         content: form.value.entry,
         begeniler: 0,
-        baslikId: this.baslik.id};
-  
-      this.entryService.addEntry(newEntry).subscribe((data) => {
-  
-        if(!this.entries) {
-          this.entries = [];
-        }
-        this.entries.push(data);
-      });   
+        baslikId: this.baslik.id})
+      .subscribe( (returnentry) => {
+          newEntrySub.next(returnentry);
+      })  ;
     }
-       
 
+    newEntrySub.subscribe( (ent) => {
+      form.resetForm();
+      this.ngOnInit();
+    })
   }
-
 }

@@ -1,27 +1,27 @@
 <h1> {{baslik.title}}</h1>
 
 <div class="list-group">
-  <app-entry *ngFor="let entry of entries" [entry]="entry"></app-entry>
+  <app-entry *ngFor="let entry of entryler" [entry]="entry"></app-entry>
 </div>
 
 <div>
-  <form #myForm="ngForm" (ngSubmit)="submitForm(myForm)">
+  <form #myForm="ngForm" (ngSubmit)="submitForm(myForm);">
     <div>
       <div *ngIf="!baslik.title">
         <label>Kategori: </label>
-        <select name="kategoriler" ngModel  *ngIf="!baslik.title">
-          <option value="{{category.id}}" *ngFor="let category of categories">{{category.text}}</option>
+        <select name="kategori" ngModel  *ngIf="!baslik.title" required>
+          <option value="{{kategori.id}}" *ngFor="let kategori of kategoriler">{{kategori.text}}</option>
         </select>  <br>
 
         <label>Başlık: </label>
-        <input type="text" placeholder="Baslik" name="baslikAdi" ngModel> <br>
+        <input type="text" placeholder="Baslik" name="baslikAdi" ngModel required> <br>
 
       </div>
      
 
       <label>Entry: </label><input type="text" placeholder="Entry " name="entry" ngModel required> <br>
        
-      <button type="submit" #mybuton [disabled]="myForm.invalid">Ekle</button>
+      <button type="submit" [disabled]="myForm.invalid">Ekle</button>
 
     </div>
   </form>

@@ -7,22 +7,45 @@ import { Baslik } from '../models/baslik';
   providedIn: 'root'
 })
 export class BaslikService {
-
-  constructor(private httpClient: HttpClient) { }
-  httpOptions = {
+  readonly httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      Authorization: 'my-auth-token'
+      'Content-Type':  'application/json'
     })
   };
+  readonly baseUrl:string = "http://localhost:3000/baslik";
 
-  getBasliklar() : Observable<Baslik[]> {
-    return this.httpClient.get<Baslik[]>("http://localhost:3000/baslik");
+  baslik:Baslik;
+  basliklar:Baslik[];
+
+  private kategoriId:number = null;
+
+  constructor(private httpClient: HttpClient) { 
+    this.emptyBaslik();
   }
 
-  addBaslik(baslik: Baslik) {
-    return this.httpClient.post<Baslik>("http://localhost:3000/baslik", baslik, this.httpOptions);
+  emptyBaslik(){
+    this.baslik =  {id:null, title:"", kategoriId:null};
   }
 
-  
+  basliklariDoldur(kategoriId?:number){
+    let url:string = this.baseUrl;
+
+    if (kategoriId != null){
+      this.kategoriId = kategoriId;
+      url += "?kategoriId=" + kategoriId;
+    }
+
+    return this.httpClient
+          .get<Baslik[]>(url)
+          .toPromise()
+          .then( response => 
+                    this.basliklar = response as Baslik[]
+               );
+  }
+
+  addBaslik(baslik: Baslik):Observable<Baslik> {
+    return  this.httpClient
+            .post<Baslik>(this.baseUrl, baslik, this.httpOptions);
+  }
+    
 }

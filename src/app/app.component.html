@@ -1,13 +1,53 @@
-<app-navbar (onFilter)= "leftpart.onFilter($event)"> </app-navbar>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+  <a class="navbar-brand" href="#">Allianz Sozluk</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+       <li class="nav-item active">
+          <a class="nav-link" (click)="baslikFiltrele(null)">Gündem <span class="sr-only">(current)</span></a>
+       </li>
+       <li class="nav-item">
+          <a class="nav-link"  (click)="baslikFiltrele(0)">#Spor</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  (click)="baslikFiltrele(1)" >#Siyaset</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="baslikFiltrele(2)"  >#Magazin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  (click)="baslikFiltrele(3)" >#Bilim</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="baslikFiltrele(4)" >#Sanat</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="baslikFiltrele(5)" >#Felsefe</a>
+        </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
 
 <div class="container-fluid">
   <div class="row">
+    <!-- LEFT PART -->
     <div class="col-5 overflow-auto p-3 mb-3 mb-md-0 mr-md-3 bg-light" style="max-width: 360px; max-height: 100vh;">
-          <app-left-part #leftpart (onClicked)="righpart.onClicked($event)">
-          </app-left-part>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let baslik of basliklar">
+          <a (click)="baslikSec(baslik)">{{baslik.title}}</a>
+        </li>
+      </ul>
     </div>
+    <!-- LEFT PART -->
     <div class="col-7">
-          <app-right-part #righpart></app-right-part>
+          <app-right-part></app-right-part>
     </div>
 
   </div>
