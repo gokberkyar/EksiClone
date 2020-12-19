@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
 import { Entry } from "../../models/entry";
 import { EntryService } from "../../services/entry.service";
 import { Baslik } from "../../models/baslik";
@@ -7,8 +6,7 @@ import { Kategori } from 'src/app/models/kategori';
 import { KategoriService } from 'src/app/services/kategori.service';
 import { BaslikService } from 'src/app/services/baslik.service';
 import { NgForm } from '@angular/forms';
-import { concatMap, retry } from 'rxjs/operators';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -64,21 +62,6 @@ export class RightPartComponent implements OnInit {
               newEntrySub.next(returnentry);
           });
       });
-      /*
-      this.baslikService.addBaslik( {id:null, 
-                                    title:form.value.baslikAdi, 
-                                    kategoriId:form.value.kategori}).pipe(
-        concatMap( (newbaslik) => {
-          this.baslikService.baslik = newbaslik;
-          this.baslikService.basliklariDoldur();
-          return this.entryService.addEntry({
-            id: null,
-            content: form.value.entry,
-            begeniler: 0,
-            baslikId: newbaslik.id});
-        })
-      );
-      */
     } else {
       this.entryService.addEntry({
         id: null,
